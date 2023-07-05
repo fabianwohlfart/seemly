@@ -93,9 +93,7 @@ export function hsva(color: string): HSLA {
  * @param color format like #000[0], #000000[00], rgb(0, 0, 0), rgba(0, 0, 0, 0) and basic color keywords https://www.w3.org/TR/css-color-3/#html4 and transparent
  * @returns
  */
-export function rgba(color: string): RGBA {
-  if (color.startsWith('var')) return color
-  
+export function rgba(color: string): RGBA {  
   try {
     let i
     if ((i = hexRegex.exec(color))) {
@@ -188,6 +186,7 @@ export function changeColor(
   base: string | RGB | RGBA,
   options: ChangeColorOptions
 ): string {
+  if (typeof base === 'string' && base.startsWith('var')) return base
   const [r, g, b, a = 1] = Array.isArray(base) ? base : rgba(base)
   if (options.alpha) {
     return stringifyRgba(r, g, b, options.alpha)
