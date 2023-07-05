@@ -94,6 +94,8 @@ export function hsva(color: string): HSLA {
  * @returns
  */
 export function rgba(color: string): RGBA {
+  if (color.startsWith('var')) return color
+  
   try {
     let i
     if ((i = hexRegex.exec(color))) {
